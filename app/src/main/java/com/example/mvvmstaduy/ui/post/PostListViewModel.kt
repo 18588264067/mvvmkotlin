@@ -1,13 +1,21 @@
 package com.example.mvvmstaduy.ui.post
 
+import android.view.View
+import androidx.lifecycle.MutableLiveData
+import com.example.mvvmstaduy.R
 import com.example.mvvmstaduy.base.BaseViewModel
 import com.example.mvvmstaduy.network.PostApi
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
+import kotlinx.android.synthetic.main.activity_post_list.view.*
 import javax.inject.Inject
 
 class PostListViewModel: BaseViewModel() {
+
+    val loadingVisibility: MutableLiveData<Int> = MutableLiveData()
+    val errorMessage: MutableLiveData<Int> = MutableLiveData()
+    val errorClickListener = View.OnClickListener { loadPosts() }
 
     @Inject
     lateinit var postApi: PostApi
@@ -30,19 +38,19 @@ class PostListViewModel: BaseViewModel() {
     }
 
     private fun onRetrievePostListError() {
-        TODO("Not yet implemented")
+        errorMessage.value = R.string.post_error
     }
 
     private fun onRetrievePostListSuccess() {
-        TODO("Not yet implemented")
     }
 
     private fun onRetrievePostListFinish() {
-        TODO("Not yet implemented")
+        loadingVisibility.value = View.GONE
     }
 
     private fun onRetrievePostListStart() {
-        TODO("Not yet implemented")
+        loadingVisibility.value = View.VISIBLE
+        errorMessage.value = null;
     }
 
     override fun onCleared() {

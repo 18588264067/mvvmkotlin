@@ -17,7 +17,6 @@ abstract class BaseViewModel : ViewModel(){
     }
 
     private fun inject() {
-        TODO("Not yet implemented")
         when (this) {
             is PostListViewModel -> injector.inject(this)
         }
