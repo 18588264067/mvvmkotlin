@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmstaduy.R
 import com.example.mvvmstaduy.databinding.ActivityPostListBinding
+import com.example.mvvmstaduy.injection.ViewModelFactory
 import com.example.mvvmstaduy.ui.post.PostListViewModel
 import com.google.android.material.snackbar.Snackbar
 
@@ -22,7 +23,7 @@ class PostListActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_post_list)
         binding.postList.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        viewModel = ViewModelProviders.of(this).get(PostListViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, ViewModelFactory(this)).get(PostListViewModel::class.java)
 
         viewModel.errorMessage.observe(this, Observer {
             if (it != null) showError(it) else hideError()
